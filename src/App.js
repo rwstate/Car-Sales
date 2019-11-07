@@ -1,38 +1,27 @@
 import React from "react";
-import { connect } from "react-redux";
-import { addFeature, removeFeature } from "./actions/actions";
+import {Route, Link} from "react-router-dom";
+
+import CarPage from "./components/CarPage";
+
+
 
 import Header from "./components/Header";
 import AddedFeatures from "./components/AddedFeatures";
 import AdditionalFeatures from "./components/AdditionalFeatures";
 import Total from "./components/Total";
 
-const App = props => {
-  const removeFeature = item => {
-    // dispatch an action here to remove an item
-    props.removeFeature(item);
-  };
-
-  const buyItem = item => {
-    // dipsatch an action here to add an item
-    props.addFeature(item);
-  };
-
+const App = () => {
   return (
-    <div className="boxes">
-      <div className="box">
-        <Header />
-        <AddedFeatures removeItem={removeFeature} />
+    <>
+      <Route exact path="/" render={props => (
+      <div>
+        <Link to="/car1">Car1</Link>
+        <Link to="/car2">Car2</Link>
       </div>
-      <div className="box">
-        <AdditionalFeatures addItem={buyItem} />
-        <Total />
-      </div>
-    </div>
-  );
-};
+      )}/>
+      <Route path="/:carId" component={CarPage} />
+    </>
+  )
+}
 
-export default connect(
-  null,
-  { addFeature, removeFeature }
-)(App);
+export default App;
